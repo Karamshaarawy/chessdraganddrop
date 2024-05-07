@@ -2,7 +2,6 @@
 import React, { Dispatch, useState } from "react";
 import Square from "./square";
 import Knight from "./knight";
-import { canMoveKnight, moveKnight } from "./game";
 
 function renderSquare(
   i: any,
