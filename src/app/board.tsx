@@ -1,67 +1,50 @@
-"use client";
-import React, { Dispatch, useState } from "react";
-import Square from "./square";
-import Knight from "./knight";
+import type { CSSProperties, FC } from "react";
+import { useEffect, useState } from "react";
 
-function renderSquare(
-  i: any,
-  [knightX, knightY]: [number, number],
-  setKPosition: Dispatch<any>
-) {
-  const x = i % 8;
-  const y = Math.floor(i / 8);
-  const isKnightHere = x === knightX && y === knightY;
-  const black = (x + y) % 2 === 1;
-  const piece = isKnightHere ? <Knight /> : null;
+import { BoardSquare } from "./BoardSquare";
+import type { Game, Position } from "./Game";
+import { Piece } from "./Piece";
 
-  function handleSquareClick(toX: number, toY: number) {
-    console.log(canMoveKnight(toX, toY));
-    if (canMoveKnight(toX, toY)) {
-      setKPosition([toX, toY]);
-    }
-  }
-  function canMoveKnight(toX: number, toY: number) {
-    const [x, y] = [knightX, knightY];
-    const dx = toX - x;
-    const dy = toY - y;
+export interface BoardProps {
+  game: Game;
+}
+
+/** Styling properties applied to the board element */
+const boardStyle: CSSProperties = {
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexWrap: "wrap",
+};
+/** Styling properties applied to each square element */
+const squareStyle: CSSProperties = { width: "12.5%", height: "12.5%" };
+
+/**
+ * The chessboard component
+ * @param props The react props
+ */
+export const Board: FC<BoardProps> = ({ game }) => {
+  const [[knightX, knightY], setKnightPos] = useState<Position>(
+    game.knightPosition
+  );
+  useEffect(() => game.observe(setKnightPos));
+
+  function renderSquare(i: number) {
+    const x = i % 8;
+    const y = Math.floor(i / 8);
 
     return (
-      (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
-      (Math.abs(dx) === 1 && Math.abs(dy) === 2)
+      <div key={i} style={squareStyle}>
+        <BoardSquare x={x} y={y} game={game}>
+          <Piece isKnight={x === knightX && y === knightY} />
+        </BoardSquare>
+      </div>
     );
   }
 
-  return (
-    <div
-      onClick={() => {
-        console.log(x, y);
-        handleSquareClick(x, y);
-      }}
-      key={i}
-      style={{ width: "12.5%", height: "12.5%" }}
-    >
-      <Square black={black}>{piece}</Square>
-    </div>
-  );
-}
-
-export default function Board({ knightPosition }: { knightPosition: any }) {
-  const [kPosition, setKPosition] = useState(knightPosition);
   const squares = [];
-  for (let i = 0; i < 64; i++) {
-    squares.push(renderSquare(i, kPosition, setKPosition));
+  for (let i = 0; i < 64; i += 1) {
+    squares.push(renderSquare(i));
   }
-
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexWrap: "wrap",
-      }}
-    >
-      {squares}
-    </div>
-  );
-}
+  return <div style={boardStyle}>{squares}</div>;
+};

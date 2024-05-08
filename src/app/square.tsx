@@ -1,26 +1,27 @@
-"use client";
-import React, { ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 
-export default function Square({
-  black,
-  children,
-}: {
+export interface SquareProps {
   black: boolean;
-  children: ReactNode;
-}) {
-  const fill = black ? "black" : "white";
-  const stroke = black ? "white" : "black";
+  children?: ReactNode;
+}
 
+const squareStyle = {
+  width: "100%",
+  height: "100%",
+};
+
+export const Square: FC<SquareProps> = ({ black, children }) => {
+  const backgroundColor = black ? "black" : "white";
+  const color = black ? "white" : "black";
   return (
     <div
       style={{
-        backgroundColor: fill,
-        color: stroke,
-        width: "100%",
-        height: "100%",
+        ...squareStyle,
+        color,
+        backgroundColor,
       }}
     >
       {children}
     </div>
   );
-}
+};

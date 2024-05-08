@@ -1,12 +1,16 @@
 "use client";
 import { Fragment } from "react";
-import Board from "./board";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Example from "./example";
 
 export default function Home() {
   return (
     <Fragment>
-      <div className="h-[100vh] w-[100vh]">
-        <Board knightPosition={[0, 0]} />
+      <div className="App">
+        <DndProvider backend={HTML5Backend}>
+          <Example />
+        </DndProvider>
       </div>
     </Fragment>
   );
