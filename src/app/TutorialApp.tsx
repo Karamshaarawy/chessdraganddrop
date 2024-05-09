@@ -2,7 +2,7 @@ import type { CSSProperties, FC } from "react";
 import { useMemo } from "react";
 
 import { Board } from "./board";
-import { Game } from "./Game";
+import { Game } from "./game";
 
 export interface ChessboardTutorialAppState {
   knightPosition: [number, number];
