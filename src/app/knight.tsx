@@ -15,7 +15,7 @@ export const Knight: FC = () => {
     () => ({
       type: ItemTypes.KNIGHT,
       collect: (monitor) => ({
-        isDragging: !!monitor.isDragging(),
+        isDragging: monitor.isDragging(),
       }),
     }),
     []
