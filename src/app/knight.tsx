@@ -11,24 +11,12 @@ const knightStyle: CSSProperties = {
 };
 
 export const Knight: FC = () => {
-  const [{ isDragging }, drag, preview] = useDrag(
-    () => ({
-      type: ItemTypes.KNIGHT,
-      collect: (monitor) => ({
-        isDragging: !!monitor.isDragging(),
-      }),
-    }),
-    []
-  );
-
   return (
     <>
-      <DragPreviewImage connect={preview} src={knightImage} />
+      {/* <DragPreviewImage connect={preview} src={knightImage} /> */}
       <div
-        ref={drag}
         style={{
           ...knightStyle,
-          opacity: isDragging ? 0.5 : 1,
         }}
       >
         ♘

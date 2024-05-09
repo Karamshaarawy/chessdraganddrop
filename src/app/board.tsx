@@ -2,7 +2,7 @@ import type { CSSProperties, FC } from "react";
 import { useEffect, useState } from "react";
 
 import { BoardSquare } from "./BoardSquare";
-import type { Game, Position } from "./Game";
+import type { Game, Position } from "./game";
 import { Piece } from "./Piece";
 
 export interface BoardProps {
