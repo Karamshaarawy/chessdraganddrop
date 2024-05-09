@@ -20,9 +20,20 @@ export const BoardSquare: FC<BoardSquareProps> = ({
   game,
 }: BoardSquareProps) => {
   const black = (x + y) % 2 === 1;
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: ItemTypes.KNIGHT,
+      drop: () => game.moveKnight(x, y),
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    }),
+    [game]
+  );
 
   return (
     <div
+      ref={drop}
       // role="Space"
       data-testid={`(${x},${y})`}
       style={{
