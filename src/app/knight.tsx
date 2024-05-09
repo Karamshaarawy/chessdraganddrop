@@ -11,7 +11,7 @@ const knightStyle: CSSProperties = {
 };
 
 export const Knight: FC = () => {
-  const [{ isDragging }, drag] = useDrag(
+  const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.KNIGHT,
       collect: (monitor) => ({
@@ -23,6 +23,8 @@ export const Knight: FC = () => {
 
   return (
     <>
+      <DragPreviewImage connect={preview} src={knightImage} />
+
       <div
         ref={drag}
         style={{
