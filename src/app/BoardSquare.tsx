@@ -25,7 +25,7 @@ export const BoardSquare: FC<BoardSquareProps> = ({
       accept: ItemTypes.KNIGHT,
       drop: () => game.moveKnight(x, y),
       collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
+        isOver: monitor.isOver(),
       }),
     }),
     [game]
