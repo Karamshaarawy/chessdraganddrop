@@ -43,6 +43,7 @@ export const BoardSquare: FC<BoardSquareProps> = ({
       }}
     >
       <Square black={black}>{children}</Square>
+      {isOver && <Overlay type={OverlayType.LegalMoveHover} />}
     </div>
   );
 };
