@@ -20,12 +20,14 @@ export const BoardSquare: FC<BoardSquareProps> = ({
   game,
 }: BoardSquareProps) => {
   const black = (x + y) % 2 === 1;
-  const [{ isOver }, drop] = useDrop(
+  const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
       accept: ItemTypes.KNIGHT,
+      canDrop: () => game.canMoveKnight(x, y),
       drop: () => game.moveKnight(x, y),
       collect: (monitor) => ({
         isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
       }),
     }),
     [game]
@@ -43,7 +45,9 @@ export const BoardSquare: FC<BoardSquareProps> = ({
       }}
     >
       <Square black={black}>{children}</Square>
-      {isOver && <Overlay type={OverlayType.LegalMoveHover} />}
+      {isOver && !canDrop && <Overlay type={OverlayType.IllegalMoveHover} />}
+      {!isOver && canDrop && <Overlay type={OverlayType.PossibleMove} />}
+      {isOver && canDrop && <Overlay type={OverlayType.LegalMoveHover} />}{" "}
     </div>
   );
 };
