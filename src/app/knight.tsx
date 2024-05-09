@@ -15,7 +15,7 @@ export const Knight: FC = () => {
     () => ({
       type: ItemTypes.KNIGHT,
       collect: (monitor) => ({
-        isDragging: !!monitor.isDragging(),
+        isDragging: monitor.isDragging(),
       }),
     }),
     []
@@ -27,6 +27,7 @@ export const Knight: FC = () => {
         ref={drag}
         style={{
           ...knightStyle,
+          opacity: isDragging ? 0.5 : 1,
         }}
       >
         ♘
