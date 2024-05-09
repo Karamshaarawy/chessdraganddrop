@@ -14,6 +14,7 @@ export const Knight: FC = () => {
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.KNIGHT,
+      item: { name: "Karam Shaarawy" },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
