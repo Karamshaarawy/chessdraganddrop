@@ -23,6 +23,8 @@ export const TutorialApp: FC = () => {
   return (
     <div style={containerStyle}>
       <Board game={game} />
+      <div draggable={true}>draggable</div>
+      <div draggable={false}>Not Draggable</div>
     </div>
   );
 };
